@@ -9,7 +9,7 @@ pub mod rbi_service {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = RbiServiceClient::connect("http://[::1]:7654").await?;
+    let mut client = RbiServiceClient::connect("http://127.0.0.1:7654").await?;
     let filename = "testfile/in_toto.tar.gz".to_string();
     let mut f = File::open(&filename)?;
     let metadata = f.metadata().expect("unable to read metadata");

@@ -9,7 +9,18 @@ COPY ./ /root
 RUN rustup component add rustfmt && \
     cargo build --release
 
-FROM centos:8.3.2011 as prod
+FROM python:3.6 as prod
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+
+ENV PATH "/root/.cargo/bin:${PATH}"
+
+RUN rustup target add x86_64-unknown-linux-musl
+
+RUN pip install "setuptools_rust>=0.12.1" \
+        "cffi>=1.14.6" \
+        "in-toto==1.0.1" \
+        "pathlib==1.0.1"
 
 WORKDIR /root/
 

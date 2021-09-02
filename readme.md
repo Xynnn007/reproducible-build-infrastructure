@@ -51,17 +51,15 @@ cd tests/bios
 cargo run
 ```
 
-### Docker (TODO)
+### Docker
 
 Build a service image using docker
 
 ```bash
-docker build -t sbom .
+docker build -t sbom . --network host
 ```
 
 Then will build a image with SBoM service image
-
-TODO: need a in-toto base image for prod.
 
 Run it as a service
 
@@ -71,7 +69,7 @@ sudo docker run -v /var/run/docker.sock:/var/run/docker.sock \
            -d sbom
 ```
 
-Then, you can connect `http://localhost:7654` by grpc to get service.
+Then, you can connect `http://127.0.0.1:7654` by grpc to get service.
 
 ## Test example
 
