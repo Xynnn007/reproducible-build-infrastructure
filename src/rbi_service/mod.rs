@@ -1,0 +1,1 @@
+pub mod rbi_service_grpc;

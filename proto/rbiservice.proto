@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package rbiservice;
+
+message rbiQueryRequest {
+    string id = 1;
+}
+
+message rbiQueryResponse {
+    enum State {
+        OK = 0;
+        FAILED = 1;
+    }
+    State state = 1;
+    bytes response = 2;
+}
+
+message rbiAddRecordRequest {
+    string class = 1;
+    string id = 2;
+    bytes file = 3;
+}
+
+message rbiAddRecordResponse {
+    bytes response = 1;
+}
+
+service RBIService {
+    rpc Query(rbiQueryRequest) returns (rbiQueryResponse) {};
+    rpc AddRecord(rbiAddRecordRequest) returns (rbiAddRecordResponse) {};
+}
