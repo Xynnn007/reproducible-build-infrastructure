@@ -15,6 +15,29 @@ a software's reference value, and generate its hash value if check passed.
 
 ## Usage
 
+### Directly Run
+
+Must have a rust compiler, in-toto and docker environment.
+
+#### in-toto environment set-up
+
+```bash
+# Fetch the demo repo using git
+git clone https://github.com/alibaba/inclavare-containers.git
+
+# Change into the demo directory
+cd inclavare-containers/rbi/in-toto/kernel/software-supply-chain-demo
+
+# Install a compatible version of in-toto
+pip install -r requirements.txt
+
+# Every step has a default timeout 10s, which is too short for a build
+# Change it to 1200s
+export IN_TOTO_LINK_CMD_EXEC_TIMEOUT='1200'
+```
+
+#### Run
+
 ```bash
 # run the server
 cargo run
@@ -27,6 +50,30 @@ In another terminal, run
 cd tests/bios
 cargo run
 ```
+
+### Docker (TODO)
+
+Build a service image using docker
+
+```bash
+docker build -t sbom .
+```
+
+Then will build a image with SBoM service image
+
+TODO: need a in-toto base image for prod.
+
+Run it as a service
+
+```bash
+sudo docker run -v /var/run/docker.sock:/var/run/docker.sock \
+           -p 7654:7654 \
+           -d sbom
+```
+
+Then, you can connect `http://localhost:7654` by grpc to get service.
+
+## Test example
 
 And you will see the output in server
 ```plaintext
